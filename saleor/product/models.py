@@ -85,21 +85,21 @@ class CategoryTranslation(SeoModelTranslation):
     category = models.ForeignKey(
         Category, related_name="translations", on_delete=models.CASCADE
     )
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, blank=True, null=True)
     description = SanitizedJSONField(blank=True, null=True, sanitizer=clean_editor_js)
 
     class Meta:
         unique_together = (("language_code", "category"),)
 
     def __str__(self) -> str:
-        return self.name
+        return self.category.name
 
     def __repr__(self) -> str:
         class_ = type(self)
         return "%s(pk=%r, name=%r, category_pk=%r)" % (
             class_.__name__,
             self.pk,
-            self.name,
+            self.category.name,
             self.category_id,
         )
 
@@ -415,21 +415,21 @@ class ProductTranslation(SeoModelTranslation):
     product = models.ForeignKey(
         Product, related_name="translations", on_delete=models.CASCADE
     )
-    name = models.CharField(max_length=250)
+    name = models.CharField(max_length=250, blank=True, null=True)
     description = SanitizedJSONField(blank=True, null=True, sanitizer=clean_editor_js)
 
     class Meta:
         unique_together = (("language_code", "product"),)
 
     def __str__(self) -> str:
-        return self.name
+        return self.product.name
 
     def __repr__(self) -> str:
         class_ = type(self)
         return "%s(pk=%r, name=%r, product_pk=%r)" % (
             class_.__name__,
             self.pk,
-            self.name,
+            self.product.name,
             self.product_id,
         )
 
@@ -795,7 +795,7 @@ class CollectionTranslation(SeoModelTranslation):
     collection = models.ForeignKey(
         Collection, related_name="translations", on_delete=models.CASCADE
     )
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, blank=True, null=True)
     description = SanitizedJSONField(blank=True, null=True, sanitizer=clean_editor_js)
 
     class Meta:
@@ -806,9 +806,9 @@ class CollectionTranslation(SeoModelTranslation):
         return "%s(pk=%r, name=%r, collection_pk=%r)" % (
             class_.__name__,
             self.pk,
-            self.name,
+            self.collection.name,
             self.collection_id,
         )
 
     def __str__(self) -> str:
-        return self.name
+        return self.collection.name

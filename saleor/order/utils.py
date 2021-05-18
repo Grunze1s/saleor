@@ -334,7 +334,7 @@ def add_variant_to_order(
         total_price = unit_price * quantity
         product_name = str(product)
         variant_name = str(variant)
-        translated_product_name = str(product.translated)
+        translated_product_name = product.translated.name
         translated_variant_name = str(variant.translated)
         if translated_product_name == product_name:
             translated_product_name = ""

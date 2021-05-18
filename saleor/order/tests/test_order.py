@@ -89,7 +89,7 @@ def test_add_variant_to_order_adds_line_for_new_variant(
     assert line.product_sku == variant.sku
     assert line.quantity == 1
     assert line.unit_price == TaxedMoney(net=Money(10, "USD"), gross=Money(10, "USD"))
-    assert line.translated_product_name == str(variant.product.translated)
+    assert line.translated_product_name == variant.product.translated.name
     assert line.variant_name == str(variant)
     assert line.product_name == str(variant.product)
 
@@ -117,7 +117,7 @@ def test_add_variant_to_draft_order_adds_line_for_new_variant_with_tax(
     assert line.quantity == 1
     assert line.unit_price == unit_price
     assert line.total_price == total_price
-    assert line.translated_product_name == str(variant.product.translated)
+    assert line.translated_product_name == variant.product.translated.name
     assert line.variant_name == str(variant)
     assert line.product_name == str(variant.product)
 
@@ -140,7 +140,7 @@ def test_add_variant_to_draft_order_adds_line_for_variant_with_price_0(
     assert line.product_sku == variant.sku
     assert line.quantity == 1
     assert line.unit_price == TaxedMoney(net=Money(0, "USD"), gross=Money(0, "USD"))
-    assert line.translated_product_name == str(variant.product.translated)
+    assert line.translated_product_name == variant.product.translated.name
     assert line.product_name == variant.product.name
 
 
